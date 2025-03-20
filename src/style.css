@@ -9,8 +9,9 @@
 /* Estilização do Header */
 .header {
     display: flex;
+    width: 100%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: first baseline;
     background-color: #969393; /* Cor semelhante ao da imagem */
     color: white;
     padding: 10px 20px;
@@ -38,4 +39,51 @@ nav ul a {
 nav ul a:hover {
     color: #2600ff; /* Muda para azul ao passar o mouse */
     text-decoration: underline;
+}
+
+/* Estilo geral da página */
+.PgInicial {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilo do container da trilha */
+.trilha-container {
+    margin-top: 20px;
+}
+
+/* Estilo do título da trilha */
+.trilha-container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilo da lista de botões da trilha */
+.trilha {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaçamento entre os botões */
+    flex-direction: column;
+    flex-wrap: wrap; /* Permite que os botões quebrem para a próxima linha se não couberem */
+}
+
+/* Estilo dos botões da trilha */
+.trilha-item {
+    background-color: #969393; /* Cor de fundo azul */
+    color: white; /* Cor do texto */
+    border: 15px;
+    margin: 0px 70px 0px 70px;
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 15px 30px; /* Espaçamento interno */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+    
+}
+
+/* Efeito ao passar o mouse sobre os botões */
+.trilha-item:hover {
+    background-color: #0056b3; /* Cor de fundo mais escura ao passar o mouse */
 }
