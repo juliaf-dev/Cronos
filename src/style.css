@@ -1,0 +1,41 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', serif;
+}
+
+/* Estilização do Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #969393; /* Cor semelhante ao da imagem */
+    color: white;
+    padding: 10px 20px;
+    height: 60px;
+    text-decoration: black;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px; /* Aumenta o espaço entre os itens */
+    padding: 0;
+}
+a{
+    justify-content: space-around;
+}
+nav ul a {
+    text-decoration: none;
+    color: black; /* Texto preto */
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+/* Efeito ao passar o mouse */
+nav ul a:hover {
+    color: #2600ff; /* Muda para azul ao passar o mouse */
+    text-decoration: underline;
+}
