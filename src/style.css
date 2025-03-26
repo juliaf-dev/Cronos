@@ -1,89 +1,130 @@
-
+/* Reset e Estilos Globais */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Times New Roman', serif;
-}
-
-/* Estilização do Header */
-.header {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    background-color: #f5f5f5;
+  }
+  
+  /* Header */
+  .header {
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: first baseline;
-    background-color: #969393; /* Cor semelhante ao da imagem */
+    justify-content: space-between;
+    background-color: #2c3e50;
     color: white;
-    padding: 10px 20px;
-    height: 60px;
-    text-decoration: black;
-}
-nav ul {
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .nav-links {
     list-style: none;
     display: flex;
-    gap: 40px; /* Aumenta o espaço entre os itens */
-    padding: 0;
-}
-a{
-    justify-content: space-around;
-}
-nav ul a {
+    gap: 30px;
+    align-items: center;
+  }
+  
+  .nav-links a {
+    color: white;
     text-decoration: none;
-    color: black; /* Texto preto */
-    font-size: 16px;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
-}
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .nav-links a:hover {
+    background-color: #34495e;
+  }
+  
+ 
 
-/* Efeito ao passar o mouse */
-nav ul a:hover {
-    color: #2600ff; /* Muda para azul ao passar o mouse */
-    text-decoration: underline;
-}
-
-/* Estilo geral da página */
-.PgInicial {
-    font-family: Arial, sans-serif;
+  
+  /* Trilha do Mundo */
+  .trilha-container {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .trilha-container h1 {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
     text-align: center;
-    padding: 20px;
-}
-
-/* Estilo do container da trilha */
-.trilha-container {
-    margin-top: 20px;
-}
-
-/* Estilo do título da trilha */
-.trilha-container h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Estilo da lista de botões da trilha */
-.trilha {
+  }
+  
+  .trilha-grid {
     display: flex;
-    justify-content: center;
-    gap: 15px; /* Espaçamento entre os botões */
     flex-direction: column;
-    flex-wrap: wrap; /* Permite que os botões quebrem para a próxima linha se não couberem */
-}
-
-/* Estilo dos botões da trilha */
-.trilha-item {
-    background-color: #969393; /* Cor de fundo azul */
-    color: white; /* Cor do texto */
-    border: 15px;
-    margin: 0px 70px 0px 70px;
-    border-radius: 10px; /* Bordas arredondadas */
-    padding: 15px 30px; /* Espaçamento interno */
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  
+  .trilha-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .trilha-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
     
-}
+    .nav-links {
+      gap: 15px;
+      font-size: 0.9rem;
+    }
+  }
+  /* Estilos para a trilha hierárquica */
+.periodo-container {
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%
 
-/* Efeito ao passar o mouse sobre os botões */
-.trilha-item:hover {
-    background-color: #0056b3; /* Cor de fundo mais escura ao passar o mouse */
-}
+  }
+  
+  .trilha-item {
+    position: relative;
+    padding-right: 30px; /* Espaço para a seta */
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #2c3e50;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:80vw;
+    
+  }
+  
+  .seta {
+    position: absolute;
+    right: 10px;
+  }
+  
+  .subperiodos-container {
+
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    padding-left: 20px;
+  }
+
+  
+  
+ 
