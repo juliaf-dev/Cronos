@@ -16,7 +16,7 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    background-color: #2c3e50;
+    background-color: #929394;
     color: white;
     padding: 15px 30px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -76,6 +76,7 @@
   @media (max-width: 768px) {
     .trilha-grid {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      
     }
     
     .nav-links {
@@ -88,7 +89,9 @@
     margin-bottom: 10px;
     align-items: center;
     justify-content: center;
-    width: 100%
+    width: 100%;
+    background-color: peachpuff;
+    border-radius: 10px;
 
   }
   
@@ -107,7 +110,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width:80vw;
+    width: 100%;
+    
     
   }
   
@@ -121,10 +125,31 @@
     display:flex;
     flex-direction: column;
     gap: 8px;
-    margin-top: 8px;
+    margin: 8px;
     padding-left: 20px;
   }
+  .subperiodo-item{
+      position: relative;
+      padding-right: 30px; /* Espaço para a seta */
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #2c3e50;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width:80vw;
+    }
 
-  
+  .logo{
+    height: 40px;
+    width: 40px;
+    
+  }
   
  

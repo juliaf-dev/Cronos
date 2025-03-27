@@ -1,15 +1,15 @@
 import React from "react"
-
+import logo from "../assets/logo/logocronos.png"
 const Header = ({ setPagina }) => {
   return (
     <div className="header">
-      <nav>
+      <nav>     
         <ul className="nav-links">
-          <li><a href="#" onClick={() => setPagina('trilha')}>Logo</a></li>
-          <li><a href="#" onClick={() => setPagina('flashcards')}>Flashcards</a></li>
-          <li><a href="#" onClick={() => setPagina('resumos')}>Resumos</a></li>
-          <li><a href="#" onClick={() => setPagina('perfil')}>
-          </a></li>
+        
+        <li><a href="#" onClick={() => setPagina('')}><img  className="logo" src={logo} alt="logo do projeto" /></a></li>
+          <li><a href="#" onClick={() => setPagina('')}>Flashcards</a></li>
+          <li><a href="#" onClick={() => setPagina('')}>Resumos</a></li>
+          <li><a href="#" onClick={() => setPagina('')}>user</a></li>
         </ul>
       </nav>
     </div>
