@@ -1,31 +1,35 @@
 import { useState } from 'react'
 import Header from './components/Header'
 import TrilhaMundo from './components/TrilhaMundo'
+import Conteudo from './components/conteudos';
 
 
-const App = () => {
-  const [paginaAtual, setPaginaAtual] = useState('trilha')
+function App() {
+  const [paginaAtual, setPaginaAtual] = useState('trilha');
+  const [conteudoSelecionado, setConteudoSelecionado] = useState(null);
 
-  const renderizarPagina = () => {
-    switch(paginaAtual) {
-      case 'trilha': return <TrilhaMundo setPagina={setPaginaAtual} />
-      case 'resumos': return <ResumosInterativos />
-      case 'flashcards': return <Flashcards 
-                                 setPontuacao={setPontuacao} 
-                                 pontuacao={pontuacao}
-                                 setNivel={setNivel}
-                               />
-      case 'perfil': return <PerfilUsuario pontuacao={pontuacao} nivel={nivel} />
-      default: return <TrilhaMundo setPagina={setPaginaAtual} />
-    }
-  }
+  const navegarParaConteudo = (conteudo) => {
+    setConteudoSelecionado(conteudo);
+    setPaginaAtual('conteudo');
+  };
+
+  const voltarParaTrilha = () => {
+    setPaginaAtual('trilha');
+  };
 
   return (
     <div className="app">
-      <Header setPagina={setPaginaAtual} />
-      {renderizarPagina()}
+      <Header />
+      {paginaAtual === 'trilha' ? (
+        <TrilhaMundo navegarParaConteudo={navegarParaConteudo} />
+      ) : (
+        <Conteudo 
+          conteudo={conteudoSelecionado} 
+          voltarParaTrilha={voltarParaTrilha} 
+        />
+      )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
