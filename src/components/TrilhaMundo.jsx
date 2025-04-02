@@ -8,21 +8,22 @@ const TrilhaMundo = ({ navegarParaConteudo }) => {
       id: 1,
       nome: "Pré-história",
       subperiodos: [
-        { id: 101, nome: "Paleolítico", conteudo: "Conteúdo detalhado sobre o Paleolítico..." },
-        { id: 102, nome: "Neolítico", conteudo: "Conteúdo detalhado sobre o Neolítico..." },
-        { id: 103, nome: "Idade dos Metais", conteudo: "Conteúdo detalhado sobre a Idade dos Metais..." }
+        { id: 101, nome: "Paleolítico"},
+        { id: 102, nome: "Neolítico"},
+        { id: 103, nome: "Idade dos Metais" }
       ]
     },
     {
       id: 2,
       nome: "Civilizações antigas",
       subperiodos: [
-        { id: 201, nome: "Mesopotâmia", conteudo: "Conteúdo detalhado sobre a Mesopotâmia..." },
-        { id: 202, nome: "Egito Antigo", conteudo: "Conteúdo detalhado sobre o Egito Antigo..." },
-        { id: 203, nome: "Grécia Antiga", conteudo: "Conteúdo detalhado sobre a Grécia Antiga..." },
-        { id: 204, nome: "Roma Antiga", conteudo: "Conteúdo detalhado sobre Roma Antiga..." }
+        { id: 201, nome: "Mesopotâmia" },
+        { id: 202, nome: "Egito Antigo" },
+        { id: 203, nome: "Grécia Antiga" },
+        { id: 204, nome: "Roma Antiga"}
       ]
     },
+    
   ];
 
   const togglePeriodo = (id) => {

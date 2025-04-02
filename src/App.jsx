@@ -4,6 +4,7 @@ import TrilhaMundo from './components/TrilhaMundo'
 import Conteudo from './components/conteudos';
 
 
+
 function App() {
   const [paginaAtual, setPaginaAtual] = useState('trilha');
   const [conteudoSelecionado, setConteudoSelecionado] = useState(null);
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header voltarParaTrilha={voltarParaTrilha} />
       {paginaAtual === 'trilha' ? (
         <TrilhaMundo navegarParaConteudo={navegarParaConteudo} />
       ) : (
