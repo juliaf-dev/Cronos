@@ -6,12 +6,20 @@ import CriarResumo from './components/CriarResumo';
 import Resumos from './components/Resumos';
 import Quiz from './components/Quiz';
 import Flashcards from './components/Flashcards';
+import AdicionarFlashcard from './components/AdicionarFlashcard';
+import AdicionarResumo from './components/AdicionarResumo';
 
 function App() {
   const [paginaAtual, setPaginaAtual] = useState('trilha');
   const [conteudoSelecionado, setConteudoSelecionado] = useState(null);
   const [resumos, setResumos] = useState([]);
   const [resumoParaEditar, setResumoParaEditar] = useState(null);
+
+  // Definição dos períodos principais
+  const periodosPrincipais = [
+    { id: 1, nome: "Pré-história" },
+    { id: 2, nome: "Civilizações antigas" }
+  ];
 
   const navegarParaConteudo = (conteudo) => {
     setConteudoSelecionado(conteudo);
@@ -43,6 +51,23 @@ function App() {
     setPaginaAtual('flashcards');
   };
 
+  const irParaAdicionarFlashcard = () => {
+    setPaginaAtual('adicionarFlashcard');
+  };
+
+  const irParaAdicionarResumo = () => {
+    setResumoParaEditar(null);
+    setPaginaAtual('adicionarResumo');
+  };
+
+  const voltarParaFlashcards = () => {
+    setPaginaAtual('flashcards');
+  };
+
+  const voltarParaResumos = () => {
+    setPaginaAtual('resumos');
+  };
+
   const salvarResumo = (resumo) => {
     if (resumoParaEditar) {
       // Se estiver editando, atualiza o resumo existente
@@ -56,7 +81,7 @@ function App() {
       // Se for novo, adiciona ao array
       setResumos([...resumos, {
         ...resumo,
-        periodo: conteudoSelecionado.nome,
+        periodo: resumo.periodo || (conteudoSelecionado ? conteudoSelecionado.nome : "Pré-história"),
         id: Date.now()
       }]);
     }
@@ -109,6 +134,7 @@ function App() {
           voltarParaTrilha={voltarParaTrilha}
           editarResumo={editarResumo}
           excluirResumo={excluirResumo}
+          irParaAdicionarResumo={irParaAdicionarResumo}
         />
       )}
 
@@ -120,7 +146,25 @@ function App() {
       )}
 
       {paginaAtual === 'flashcards' && (
-        <Flashcards voltarParaTrilha={voltarParaTrilha} />
+        <Flashcards 
+          voltarParaTrilha={voltarParaTrilha}
+          irParaAdicionarFlashcard={irParaAdicionarFlashcard}
+        />
+      )}
+
+      {paginaAtual === 'adicionarFlashcard' && (
+        <AdicionarFlashcard 
+          voltarParaFlashcards={voltarParaFlashcards}
+          periodosPrincipais={periodosPrincipais}
+        />
+      )}
+
+      {paginaAtual === 'adicionarResumo' && (
+        <AdicionarResumo 
+          voltarParaResumos={voltarParaResumos}
+          periodosPrincipais={periodosPrincipais}
+          salvarResumo={salvarResumo}
+        />
       )}
     </div>
   );

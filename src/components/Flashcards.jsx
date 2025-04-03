@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaTrash, FaArrowLeft, FaArrowRight, FaFolder, FaFolderOpen, FaArrowUp, FaCheck, FaClock, FaArrowLeft as FaVoltar } from 'react-icons/fa';
+import { FaTrash, FaArrowLeft, FaArrowRight, FaFolder, FaFolderOpen, FaArrowUp, FaCheck, FaClock, FaArrowLeft as FaVoltar, FaPlus } from 'react-icons/fa';
 
-const Flashcards = ({ voltarParaTrilha }) => {
+const Flashcards = ({ voltarParaTrilha, irParaAdicionarFlashcard }) => {
       
   const [flashcards, setFlashcards] = useState([]);
   const [flashcardAtual, setFlashcardAtual] = useState(0);
@@ -126,10 +126,13 @@ const Flashcards = ({ voltarParaTrilha }) => {
     return (
       <div className="flashcards-container">
         <div className="titulo-container">
-      <button onClick={voltarParaTrilha} className="botao-voltar">
-        ← Voltar
-      </button>
+          <button onClick={voltarParaTrilha} className="botao-voltar">
+            <FaVoltar /> Voltar
+          </button>
           <h1>Meus Flashcards</h1>
+          <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
+            <FaPlus /> Adicionar Flashcard
+          </button>
         </div>
         <p>Selecione uma pasta para estudar:</p>
         
@@ -180,6 +183,9 @@ const Flashcards = ({ voltarParaTrilha }) => {
             <h1>{pastaAtual.nome}</h1>
           </div>
           <p>Não há flashcards nesta pasta.</p>
+          <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
+            <FaPlus /> Adicionar Flashcard
+          </button>
         </div>
       );
     }
@@ -283,9 +289,13 @@ const Flashcards = ({ voltarParaTrilha }) => {
             <FaVoltar /> Voltar
           </button>
           <h1>Meus Flashcards</h1>
+         
         </div>
         <p>Você ainda não tem flashcards salvos.</p>
-        <p>Adicione questões do quiz aos seus flashcards para estudar!</p>
+        <p>Adicione questões do quiz aos seus flashcards para estudar!</p> 
+        <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
+            <FaPlus /> Adicionar Flashcard
+          </button>
       </div>
     );
   }

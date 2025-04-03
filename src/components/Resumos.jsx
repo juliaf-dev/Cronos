@@ -1,12 +1,15 @@
 import React from 'react';
+import { FaPlus } from 'react-icons/fa';
 
-const Resumos = ({ resumos, voltarParaTrilha, editarResumo, excluirResumo }) => {
+const Resumos = ({ resumos, voltarParaTrilha, editarResumo, excluirResumo, irParaAdicionarResumo }) => {
   return (
     <div className="resumos-container">
-      <button onClick={voltarParaTrilha} className="botao-voltar">
-        ← Voltar
-      </button>
-      <h1>Meus Resumos</h1>
+      <div className="titulo-container">
+        <button onClick={voltarParaTrilha} className="botao-voltar">
+          ← Voltar
+        </button>
+        <h1>Meus Resumos</h1>
+      </div>
       
       <div className="lista-resumos">
         {resumos && resumos.length > 0 ? (
@@ -32,7 +35,12 @@ const Resumos = ({ resumos, voltarParaTrilha, editarResumo, excluirResumo }) => 
             </div>
           ))
         ) : (
-          <p className="sem-resumos">Você ainda não tem resumos salvos.</p>
+          <div className="sem-resumos">
+            <p>Você ainda não tem resumos salvos.</p>
+            <button onClick={irParaAdicionarResumo} className="btn-adicionar">
+              <FaPlus /> Adicionar Resumo
+            </button>
+          </div>
         )}
       </div>
     </div>
