@@ -1,4 +1,4 @@
-const ConteudoPaleolitico = ({ voltarParaTrilha }) => {
+const ConteudoPaleolitico = ({ voltarParaTrilha, irParaCriarResumo }) => {
     return (
       <div className="pagina-historica">
         <button onClick={voltarParaTrilha} className="botao-voltar">
@@ -25,7 +25,7 @@ const ConteudoPaleolitico = ({ voltarParaTrilha }) => {
           <p>8. Importância do Paleolítico</p>
           <p>Esse período foi essencial para a sobrevivência e evolução do ser humano, marcando o início da cultura, da comunicação e do desenvolvimento das primeiras tecnologias. Foi também uma fase de adaptação às mudanças climáticas e ambientais.</p>
         </div>
-        <button onClick={() => navigate('')} className="botao-proximo">
+        <button onClick={irParaCriarResumo} className="botao-proximo">
           Próximo →
         </button>
       </div>
