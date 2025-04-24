@@ -5,9 +5,9 @@ import { FaPlus, FaCheck } from 'react-icons/fa';
  * Componente Quiz - Gerencia um quiz interativo sobre o Período Paleolítico
  * @param {Object} props - Propriedades do componente
  * @param {Function} props.voltarParaConteudo - Função para retornar à página de conteúdo
- * @param {Function} props.voltarParaTrilha - Função para retornar à página da Trilha Mundo
+ * @param {Function} props.voltarParaMain - Função para retornar à página da Main
  */
-const Quiz = ({ voltarParaConteudo, voltarParaTrilha }) => {
+const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
   // Estados para controlar o quiz
   const [questaoAtual, setQuestaoAtual] = useState(0);          // Índice da questão atual
   const [pontuacao, setPontuacao] = useState(0);                // Número de respostas corretas
@@ -46,39 +46,6 @@ const Quiz = ({ voltarParaConteudo, voltarParaTrilha }) => {
       ],
       respostaCorreta: 2,
       explicacao: "O Período Paleolítico durou aproximadamente 2,5 milhões de anos, começando há cerca de 2,5 milhões de anos e terminando há cerca de 10.000 anos. É o período mais longo da pré-história humana, abrangendo cerca de 99% da história tecnológica da humanidade."
-    },
-    {
-      pergunta: "Qual foi uma das maiores conquistas do período Paleolítico?",
-      opcoes: [
-        "A invenção da escrita",
-        "O domínio do fogo",
-        "A criação da agricultura",
-        "A domesticação de animais"
-      ],
-      respostaCorreta: 1,
-      explicacao: "O domínio do fogo foi uma das maiores conquistas do Paleolítico, ocorrendo há cerca de 1,5 milhões de anos. Isso permitiu aos humanos cozinhar alimentos (aumentando a digestibilidade e segurança), se aquecer, iluminar, proteger-se de predadores e expandir para ambientes mais frios."
-    },
-    {
-      pergunta: "Como era o modo de vida dos seres humanos no Paleolítico?",
-      opcoes: [
-        "Sedentários",
-        "Nômades",
-        "Urbanos",
-        "Agricultores"
-      ],
-      respostaCorreta: 1,
-      explicacao: "Os humanos do Paleolítico eram nômades, movendo-se constantemente em busca de alimentos. Eles seguiam os rebanhos de animais que caçavam e migravam para áreas com mais recursos quando os suprimentos locais se esgotavam. Este estilo de vida nômade era necessário devido à dependência da caça e coleta."
-    },
-    {
-      pergunta: "Em que se baseava a economia do período Paleolítico?",
-      opcoes: [
-        "Agricultura e pecuária",
-        "Comércio e artesanato",
-        "Caça, pesca e coleta",
-        "Mineração e metalurgia"
-      ],
-      respostaCorreta: 2,
-      explicacao: "A economia do Paleolítico baseava-se na caça, pesca e coleta. Os humanos obtinham alimentos caçando animais, pescando e coletando plantas, frutas, sementes e raízes. Não havia agricultura ou domesticação de animais, e o comércio era limitado a trocas simples de objetos."
     }
   ];
 
@@ -204,8 +171,8 @@ const Quiz = ({ voltarParaConteudo, voltarParaTrilha }) => {
             <button onClick={reiniciarQuiz} className="btn-reiniciar">
               Tentar Novamente
             </button>
-            <button onClick={voltarParaTrilha} className="btn-voltar-trilha">
-              Voltar para Trilha
+            <button onClick={voltarParaMain} className="btn-voltar-main">
+              Voltar para home
             </button>
           </div>
         </div>

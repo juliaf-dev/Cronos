@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaArrowLeft as FaVoltar, FaSave } from 'react-icons/fa';
+import TituloContainer from './TituloContainer';
 
 const AdicionarFlashcard = ({ voltarParaFlashcards, periodosPrincipais }) => {
   const [pergunta, setPergunta] = useState('');
@@ -49,12 +50,11 @@ const AdicionarFlashcard = ({ voltarParaFlashcards, periodosPrincipais }) => {
 
   return (
     <div className="adicionar-flashcard">
-      <div className="titulo-container">
-        <button onClick={voltarParaFlashcards} className="botao-voltar">
-          <FaVoltar /> Voltar
-        </button>
-        <h1>Adicionar Novo Flashcard</h1>
-      </div>
+      <TituloContainer 
+        titulo="Adicionar Novo Flashcard" 
+        onVoltar={voltarParaFlashcards}
+        botaoVoltarIcone={<FaVoltar />}
+      />
       
       {mensagemSucesso && (
         <div className="mensagem-sucesso">

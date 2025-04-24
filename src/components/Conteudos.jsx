@@ -1,7 +1,7 @@
-const ConteudoPaleolitico = ({ voltarParaTrilha, irParaCriarResumo }) => {
+const ConteudoPaleolitico = ({ voltarParaMain, irParaCriarResumo }) => {
     return (
       <div className="pagina-historica">
-        <button onClick={voltarParaTrilha} className="botao-voltar">
+        <button onClick={voltarParaMain} className="botao-voltar">
           ← Voltar
         </button>
   

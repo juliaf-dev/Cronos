@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaArrowLeft as FaVoltar, FaSave } from 'react-icons/fa';
+import TituloContainer from './TituloContainer';
 
 const AdicionarResumo = ({ voltarParaResumos, periodosPrincipais, salvarResumo }) => {
   const [titulo, setTitulo] = useState('');
@@ -40,12 +41,11 @@ const AdicionarResumo = ({ voltarParaResumos, periodosPrincipais, salvarResumo }
 
   return (
     <div className="adicionar-resumo">
-      <div className="titulo-container">
-        <button onClick={voltarParaResumos} className="botao-voltar">
-          <FaVoltar /> Voltar
-        </button>
-        <h1>Adicionar Novo Resumo</h1>
-      </div>
+      <TituloContainer 
+        titulo="Adicionar Novo Resumo" 
+        onVoltar={voltarParaResumos}
+        botaoVoltarIcone={<FaVoltar />}
+      />
       
       {mensagemSucesso && (
         <div className="mensagem-sucesso">

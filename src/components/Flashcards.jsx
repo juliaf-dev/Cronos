@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaTrash, FaArrowLeft, FaArrowRight, FaFolder, FaFolderOpen, FaArrowUp, FaCheck, FaClock, FaArrowLeft as FaVoltar, FaPlus } from 'react-icons/fa';
+import TituloContainer from './TituloContainer';
 
-const Flashcards = ({ voltarParaTrilha, irParaAdicionarFlashcard }) => {
+const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
       
   const [flashcards, setFlashcards] = useState([]);
   const [flashcardAtual, setFlashcardAtual] = useState(0);
@@ -125,18 +126,17 @@ const Flashcards = ({ voltarParaTrilha, irParaAdicionarFlashcard }) => {
   const renderizarListaPastas = () => {
     return (
       <div className="flashcards-container">
-        <div className="titulo-container">
-          <button onClick={voltarParaTrilha} className="botao-voltar">
-            <FaVoltar /> Voltar
-          </button>
-          <h1>Meus Flashcards</h1>
-          <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
-            <FaPlus /> Adicionar Flashcard
-          </button>
-        </div>
+        <TituloContainer 
+          titulo="Meus Flashcards" 
+          onVoltar={voltarParaMain}
+          botaoVoltarIcone={<FaVoltar />}
+        />
         <p>Selecione uma pasta para estudar:</p>
         
         <div className="pastas-lista">
+        <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
+            <FaPlus /> Adicionar Flashcard
+          </button>
           {pastas.map((pasta, index) => {
             // Conta flashcards revisados e não revisados
             const flashcardsRevisadosCount = pasta.flashcards.filter(
@@ -176,12 +176,11 @@ const Flashcards = ({ voltarParaTrilha, irParaAdicionarFlashcard }) => {
     if (pastaAtual.flashcards.length === 0) {
       return (
         <div className="flashcards-container">
-          <div className="titulo-container">
-            <button className="botao-voltar" onClick={voltarParaPastas}>
-              <FaVoltar /> Voltar
-            </button>
-            <h1>{pastaAtual.nome}</h1>
-          </div>
+          <TituloContainer 
+            titulo={pastaAtual.nome} 
+            onVoltar={voltarParaPastas}
+            botaoVoltarIcone={<FaVoltar />}
+          />
           <p>Não há flashcards nesta pasta.</p>
           <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
             <FaPlus /> Adicionar Flashcard
@@ -195,12 +194,11 @@ const Flashcards = ({ voltarParaTrilha, irParaAdicionarFlashcard }) => {
 
     return (
       <div className="flashcards-container">
-        <div className="titulo-container">
-          <button className="botao-voltar" onClick={voltarParaPastas}>
-            <FaVoltar /> Voltar
-          </button>
-          <h1>{pastaAtual.nome}</h1>
-        </div>
+        <TituloContainer 
+          titulo={pastaAtual.nome} 
+          onVoltar={voltarParaPastas}
+          botaoVoltarIcone={<FaVoltar />}
+        />
         <p className="flashcard-contador">
           Flashcard {flashcardAtual + 1} de {pastaAtual.flashcards.length}
         </p>
@@ -284,13 +282,11 @@ const Flashcards = ({ voltarParaTrilha, irParaAdicionarFlashcard }) => {
   if (pastas.length === 0 || pastas.every(pasta => pasta.flashcards.length === 0)) {
     return (
       <div className="flashcards-container">
-        <div className="titulo-container">
-          <button className="botao-voltar" onClick={voltarParaTrilha}>
-            <FaVoltar /> Voltar
-          </button>
-          <h1>Meus Flashcards</h1>
-         
-        </div>
+        <TituloContainer 
+          titulo="Meus Flashcards" 
+          onVoltar={voltarParaMain}
+          botaoVoltarIcone={<FaVoltar />}
+        />
         <p>Você ainda não tem flashcards salvos.</p>
         <p>Adicione questões do quiz aos seus flashcards para estudar!</p> 
         <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">

@@ -1,15 +1,14 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
+import TituloContainer from './TituloContainer';
 
-const Resumos = ({ resumos, voltarParaTrilha, editarResumo, excluirResumo, irParaAdicionarResumo }) => {
+const Resumos = ({ resumos, voltarParaMain, editarResumo, excluirResumo, irParaAdicionarResumo }) => {
   return (
     <div className="resumos-container">
-      <div className="titulo-container">
-        <button onClick={voltarParaTrilha} className="botao-voltar">
-          ← Voltar
-        </button>
-        <h1>Meus Resumos</h1>
-      </div>
+      <TituloContainer 
+        titulo="Meus Resumos" 
+        onVoltar={voltarParaMain} 
+      />
       
       <div className="lista-resumos">
         {resumos && resumos.length > 0 ? (

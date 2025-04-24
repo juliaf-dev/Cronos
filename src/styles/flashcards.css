@@ -1,0 +1,125 @@
+.flashcard-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.flashcard-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.flashcard-pergunta {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.flashcard-resposta {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.flashcard-explicacao {
+  font-size: 0.9rem;
+  color: #777;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.flashcard-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.btn-mostrar-resposta {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-mostrar-resposta:hover {
+  background-color: #0056b3;
+}
+
+.btn-excluir {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-excluir:hover {
+  background-color: #c82333;
+}
+
+.status-revisado {
+  color: #28a745;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-nao-revisado {
+  color: #ffc107;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navegacao-flashcards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.btn-navegacao {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-navegacao:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+.btn-navegacao:disabled {
+  background-color: #ced4da;
+  cursor: not-allowed;
+}
+
+.contador-flashcards {
+  font-size: 1rem;
+  color: #495057;
+  font-weight: 500;
+} 

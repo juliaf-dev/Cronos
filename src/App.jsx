@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Header from './components/Header'
-import TrilhaMundo from './components/TrilhaMundo'
+import Main from './components/Main'
 import Conteudo from './components/conteudos';
 import CriarResumo from './components/CriarResumo';
 import Resumos from './components/Resumos';
@@ -8,26 +8,30 @@ import Quiz from './components/Quiz';
 import Flashcards from './components/Flashcards';
 import AdicionarFlashcard from './components/AdicionarFlashcard';
 import AdicionarResumo from './components/AdicionarResumo';
+import Geografia from './components/Materias/Geografia'
 
 function App() {
-  const [paginaAtual, setPaginaAtual] = useState('trilha');
+  const [paginaAtual, setPaginaAtual] = useState('Main');
   const [conteudoSelecionado, setConteudoSelecionado] = useState(null);
   const [resumos, setResumos] = useState([]);
   const [resumoParaEditar, setResumoParaEditar] = useState(null);
+  const [materiaAtual, setMateriaAtual] = useState(null); // Novo estado para controlar a matéria atual
 
-  // Definição dos períodos principais
-  const periodosPrincipais = [
-    { id: 1, nome: "Pré-história" },
-    { id: 2, nome: "Civilizações antigas" }
-  ];
 
   const navegarParaConteudo = (conteudo) => {
     setConteudoSelecionado(conteudo);
     setPaginaAtual('conteudo');
   };
 
-  const voltarParaTrilha = () => {
-    setPaginaAtual('trilha');
+  const navegarParaMateria = (materia) => {
+    setMateriaAtual(materia.nome);
+    setPaginaAtual('materia');
+  };
+
+  const voltarParaMain = () => {
+    setPaginaAtual('Main');
+    setMateriaAtual(null);
+
   };
   
   const irParaCriarResumo = () => {
@@ -101,19 +105,30 @@ function App() {
   return (
     <div className="app">
       <Header 
-        voltarParaTrilha={voltarParaTrilha}
+        voltarParaMain={voltarParaMain}
         irParaResumos={irParaResumos}
         irParaFlashcards={irParaFlashcards}
+        navegarParaMateria={navegarParaMateria}
+
       />
       
-      {paginaAtual === 'trilha' && (
-        <TrilhaMundo navegarParaConteudo={navegarParaConteudo} />
+      {paginaAtual === 'Main' && (
+        <Main 
+        navegarParaConteudo={navegarParaConteudo}
+        navegarParaMateria={navegarParaMateria} 
+        />
+      )}
+       {paginaAtual === 'materia' && materiaAtual === 'Geografia' && (
+        <Geografia 
+          navegarParaConteudo={navegarParaConteudo}
+          voltarParaMain={voltarParaMain}
+        />
       )}
       
       {paginaAtual === 'conteudo' && (
         <Conteudo 
           conteudo={conteudoSelecionado} 
-          voltarParaTrilha={voltarParaTrilha}  
+          voltarParaMain={voltarParaMain}  
           irParaCriarResumo={irParaCriarResumo} 
         />
       )}
@@ -131,7 +146,7 @@ function App() {
       {paginaAtual === 'resumos' && (
         <Resumos 
           resumos={resumos}
-          voltarParaTrilha={voltarParaTrilha}
+          voltarParaMain={voltarParaMain}
           editarResumo={editarResumo}
           excluirResumo={excluirResumo}
           irParaAdicionarResumo={irParaAdicionarResumo}
@@ -141,13 +156,13 @@ function App() {
       {paginaAtual === 'quiz' && (
         <Quiz 
           voltarParaConteudo={voltarParaConteudo}
-          voltarParaTrilha={voltarParaTrilha}
+          voltarParaMain={voltarParaMain}
         />
       )}
 
       {paginaAtual === 'flashcards' && (
         <Flashcards 
-          voltarParaTrilha={voltarParaTrilha}
+          voltarParaMain={voltarParaMain}
           irParaAdicionarFlashcard={irParaAdicionarFlashcard}
         />
       )}

@@ -3,8 +3,11 @@ import logo from "../assets/logo/logocronos.png"
 import Login from "./Login"
 import UserPage from "./UserPage"
 import { FaUser, FaLightbulb } from "react-icons/fa"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MateriasDropdown from './MateriasDropdown';
+import { faBook, faLayerGroup, faFileAlt, faBell, faUser as faUserIcon } from '@fortawesome/free-solid-svg-icons';
 
-const Header = ({ voltarParaTrilha, irParaResumos, irParaFlashcards }) => {
+const Header = ({ voltarParaMain, irParaResumos, irParaFlashcards, navegarParaMateria }) => {
   const [mostrarLogin, setMostrarLogin] = useState(false);
   const [mostrarUserPage, setMostrarUserPage] = useState(false);
   const [usuarioLogado, setUsuarioLogado] = useState(false);
@@ -22,13 +25,18 @@ const Header = ({ voltarParaTrilha, irParaResumos, irParaFlashcards }) => {
   return (
     <div className="header">
       <div className="header-left">
-        <img className="logo" src={logo} alt="logo do projeto" onClick={voltarParaTrilha} />
-        <nav className="header-nav">     
-          <ul className="nav-links">
-            <li><a href="#" onClick={irParaFlashcards}>Flashcards</a></li>
-            <li><a href="#" onClick={irParaResumos}>Resumos</a></li>
-          </ul>
-        </nav>
+        <img className="logo" src={logo} alt="logo do projeto" onClick={voltarParaMain} />
+        <button className="nav-button">
+          <MateriasDropdown navegarParaMateria={navegarParaMateria}/>
+          </button>
+        <button className="nav-button" onClick={irParaFlashcards}>
+          <FontAwesomeIcon icon={faLayerGroup} />
+          <span>Flashcards</span>
+        </button>
+        <button className="nav-button" onClick={irParaResumos}>
+          <FontAwesomeIcon icon={faFileAlt} />
+          <span > Resumos</span>
+        </button>
       </div>
 
       <div className="header-right">
