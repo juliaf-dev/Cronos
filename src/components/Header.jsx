@@ -26,9 +26,9 @@ const Header = ({ voltarParaMain, irParaResumos, irParaFlashcards, navegarParaMa
     <div className="header">
       <div className="header-left">
         <img className="logo" src={logo} alt="logo do projeto" onClick={voltarParaMain} />
-        <button className="nav-button">
-          <MateriasDropdown navegarParaMateria={navegarParaMateria}/>
-          </button>
+        <div className="nav-button"> {/* Alterado para div */}
+  <MateriasDropdown navegarParaMateria={navegarParaMateria} />
+</div>
         <button className="nav-button" onClick={irParaFlashcards}>
           <FontAwesomeIcon icon={faLayerGroup} />
           <span>Flashcards</span>

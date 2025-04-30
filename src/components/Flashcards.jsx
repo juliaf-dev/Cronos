@@ -14,7 +14,6 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
   // Definição dos períodos principais
   const periodosPrincipais = [
     { id: 1, nome: "Pré-história" },
-    { id: 2, nome: "Civilizações antigas" }
   ];
 
   // Carrega os flashcards do localStorage ao iniciar o componente
@@ -129,7 +128,6 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
         <TituloContainer 
           titulo="Meus Flashcards" 
           onVoltar={voltarParaMain}
-          botaoVoltarIcone={<FaVoltar />}
         />
         <p>Selecione uma pasta para estudar:</p>
         

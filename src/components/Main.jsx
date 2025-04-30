@@ -18,7 +18,7 @@ const Main = ({ navegarParaMateria }) => {
           <div
             key={materia.id}
             className="materia-card"
-            onClick={() => navegarParaMateria(materia)} // Todos usam navegarParaMateria
+            onClick={() => navegarParaMateria(materia)}
           >
             <h2>{materia.nome}</h2>
           </div>

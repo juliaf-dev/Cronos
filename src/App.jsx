@@ -8,7 +8,9 @@ import Quiz from './components/Quiz';
 import Flashcards from './components/Flashcards';
 import AdicionarFlashcard from './components/AdicionarFlashcard';
 import AdicionarResumo from './components/AdicionarResumo';
-import Geografia from './components/Materias/Geografia'
+import Geografia from './components/Materia/Geografia'
+import Historia from './components/Materia/Historia';
+
 
 function App() {
   const [paginaAtual, setPaginaAtual] = useState('Main');
@@ -24,8 +26,8 @@ function App() {
   };
 
   const navegarParaMateria = (materia) => {
-    setMateriaAtual(materia.nome);
-    setPaginaAtual('materia');
+    setMateriaAtual(materia.nome); // Isso define qual matéria será renderizada
+    setPaginaAtual('materia'); // Isso muda para a view de matéria
   };
 
   const voltarParaMain = () => {
@@ -61,7 +63,7 @@ function App() {
 
   const irParaAdicionarResumo = () => {
     setResumoParaEditar(null);
-    setPaginaAtual('adicionarResumo');
+    setPaginaAtual('AdicionarResumo');
   };
 
   const voltarParaFlashcards = () => {
@@ -122,6 +124,12 @@ function App() {
         <Geografia 
           navegarParaConteudo={navegarParaConteudo}
           voltarParaMain={voltarParaMain}
+        />
+      )}
+      {paginaAtual === 'materia' && materiaAtual === 'História' && (
+        <Historia 
+        navegarParaConteudo={navegarParaConteudo}
+        voltarParaMain={voltarParaMain}
         />
       )}
       
