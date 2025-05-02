@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaTrash, FaArrowLeft, FaArrowRight, FaFolder, FaFolderOpen, FaArrowUp, FaCheck, FaClock, FaArrowLeft as FaVoltar, FaPlus } from 'react-icons/fa';
 import TituloContainer from './TituloContainer';
+import '../styles/flashcards.css'
 
 const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
       
@@ -283,7 +284,6 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
         <TituloContainer 
           titulo="Meus Flashcards" 
           onVoltar={voltarParaMain}
-          botaoVoltarIcone={<FaVoltar />}
         />
         <p>Você ainda não tem flashcards salvos.</p>
         <p>Adicione questões do quiz aos seus flashcards para estudar!</p> 

@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { faGlobe, faBook, faLandmark, faBookOpen, faUsers } from '@fortawesome/free-solid-svg-icons';
+import '../styles/dropdown.css';
 
 const MateriasDropdown = ({ navegarParaMateria }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef();
+  const toggleRef = useRef();
   
   const materias = [
     { nome: 'Filosofia', icone: faBook },
@@ -23,9 +26,32 @@ const MateriasDropdown = ({ navegarParaMateria }) => {
     setIsOpen(false);
   };
 
+  // Fecha o dropdown quando clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && 
+          dropdownRef.current && 
+          !dropdownRef.current.contains(event.target) &&
+          toggleRef.current &&
+          !toggleRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="materias-dropdown">
-      <button className="dropdown-toggle" onClick={toggleDropdown}>
+    <div className="materias-dropdown" ref={dropdownRef}>
+      <button 
+        className="dropdown-toggle" 
+        onClick={toggleDropdown}
+        ref={toggleRef}
+      >
         Matérias
         <FontAwesomeIcon 
           icon={isOpen ? faChevronUp : faChevronDown} 

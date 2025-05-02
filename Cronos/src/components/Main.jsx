@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../styles/main.css';
 
 const Main = ({ navegarParaMateria }) => {
   const materiasData = [

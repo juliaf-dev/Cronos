@@ -1,3 +1,4 @@
+import '../styles/conteudos.css';
 const ConteudoPaleolitico = ({ voltarParaMain, irParaCriarResumo }) => {
     return (
       <div className="pagina-historica">

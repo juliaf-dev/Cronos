@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import '../styles/login.css'
 
 const Login = ({ onClose, onLogin }) => {
   const [email, setEmail] = useState('');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaPlus, FaCheck } from 'react-icons/fa';
-
+import '../styles/quiz.css'
 /**
  * Componente Quiz - Gerencia um quiz interativo sobre o Período Paleolítico
  * @param {Object} props - Propriedades do componente

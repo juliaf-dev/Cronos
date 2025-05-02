@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 import TituloContainer from './TituloContainer';
+import '../styles/resumos.css'
 
 const Resumos = ({ resumos, voltarParaMain, editarResumo, excluirResumo, irParaAdicionarResumo }) => {
   return (
