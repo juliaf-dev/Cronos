@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Header from './components/Header'
 import Main from './components/Main'
-import Conteudo from './components/conteudos';
+import Conteudo from './components/Conteudos';
 import CriarResumo from './components/CriarResumo';
 import Resumos from './components/Resumos';
 import Quiz from './components/Quiz';
