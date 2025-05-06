@@ -6,7 +6,7 @@ import CriarResumo from './components/CriarResumo';
 import Resumos from './components/Resumos';
 import Quiz from './components/Quiz';
 import Flashcards from './components/Flashcards';
-import AdicionarFlashcard from './components/AdicionarFlashcard';
+import AdicionarFlashcard from './components/Flashcards/AdicionarFlashcard';
 import AdicionarResumo from './components/AdicionarResumo';
 import Geografia from './components/Materia/Geografia'
 import Historia from './components/Materia/Historia';
@@ -18,6 +18,7 @@ function App() {
   const [resumos, setResumos] = useState([]);
   const [resumoParaEditar, setResumoParaEditar] = useState(null);
   const [materiaAtual, setMateriaAtual] = useState(null); // Novo estado para controlar a matéria atual
+  const [disciplinaFlashcard, setDisciplinaFlashcard] = useState(null);
 
 
   const navegarParaConteudo = (conteudo) => {
@@ -57,7 +58,8 @@ function App() {
     setPaginaAtual('flashcards');
   };
 
-  const irParaAdicionarFlashcard = () => {
+  const irParaAdicionarFlashcard = (disciplina) => {
+    setDisciplinaFlashcard(disciplina);
     setPaginaAtual('adicionarFlashcard');
   };
 
@@ -178,7 +180,7 @@ function App() {
       {paginaAtual === 'adicionarFlashcard' && (
         <AdicionarFlashcard 
           voltarParaFlashcards={voltarParaFlashcards}
-          periodosPrincipais={periodosPrincipais}
+          disciplinaSelecionada={disciplinaFlashcard}
         />
       )}
 

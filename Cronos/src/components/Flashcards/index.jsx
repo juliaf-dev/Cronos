@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaTrash, FaArrowLeft, FaArrowRight, FaFolder, FaFolderOpen, FaArrowUp, FaCheck, FaClock, FaArrowLeft as FaVoltar, FaPlus } from 'react-icons/fa';
-import TituloContainer from './TituloContainer';
-import '../styles/flashcards.css'
+import TituloContainer from '../TituloContainer';
+import '../../styles/flashcards.css'
 
 const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
       
@@ -14,7 +14,11 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
 
   // Definição dos períodos principais
   const periodosPrincipais = [
-    { id: 1, nome: "Pré-história" },
+    { id: 1, nome: "História" },
+    { id: 2, nome: "Geografia" },
+    { id: 3, nome: "Filosofia" },
+    { id: 4, nome: "Sociologia" },
+    { id: 5, nome: "Literatura" }
   ];
 
   // Carrega os flashcards do localStorage ao iniciar o componente
@@ -46,7 +50,7 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
           flashcardsPorPeriodo[periodoId].flashcards.push(flashcard);
         }
       } else {
-        // Se não tiver período, adiciona à pasta "Pré-história" por padrão
+        // Se não tiver período, adiciona à pasta "História" por padrão
         flashcardsPorPeriodo[1].flashcards.push(flashcard);
       }
     });
@@ -122,6 +126,11 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
     }
   };
 
+  // Função para adicionar flashcard em uma disciplina específica
+  const adicionarFlashcardNaDisciplina = (disciplina) => {
+    irParaAdicionarFlashcard(disciplina);
+  };
+
   // Renderização da lista de pastas
   const renderizarListaPastas = () => {
     return (
@@ -133,9 +142,6 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
         <p>Selecione uma pasta para estudar:</p>
         
         <div className="pastas-lista">
-        <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
-            <FaPlus /> Adicionar Flashcard
-          </button>
           {pastas.map((pasta, index) => {
             // Conta flashcards revisados e não revisados
             const flashcardsRevisadosCount = pasta.flashcards.filter(
@@ -181,7 +187,10 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
             botaoVoltarIcone={<FaVoltar />}
           />
           <p>Não há flashcards nesta pasta.</p>
-          <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
+          <button 
+            onClick={() => adicionarFlashcardNaDisciplina(pastaAtual.nome)} 
+            className="btn-adicionar"
+          >
             <FaPlus /> Adicionar Flashcard
           </button>
         </div>
@@ -266,6 +275,13 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
           </button>
           
           <button 
+            onClick={() => adicionarFlashcardNaDisciplina(pastaAtual.nome)} 
+            className="btn-adicionar"
+          >
+            <FaPlus /> Adicionar Flashcard
+          </button>
+          
+          <button 
             className="btn-navegacao-flashcard"
             onClick={proximoFlashcard}
             disabled={flashcardAtual === pastaAtual.flashcards.length - 1}
@@ -277,24 +293,6 @@ const Flashcards = ({ voltarParaMain, irParaAdicionarFlashcard }) => {
     );
   };
 
-  // Se não houver pastas ou flashcards, mostra uma mensagem
-  if (pastas.length === 0 || pastas.every(pasta => pasta.flashcards.length === 0)) {
-    return (
-      <div className="flashcards-container">
-        <TituloContainer 
-          titulo="Meus Flashcards" 
-          onVoltar={voltarParaMain}
-        />
-        <p>Você ainda não tem flashcards salvos.</p>
-        <p>Adicione questões do quiz aos seus flashcards para estudar!</p> 
-        <button onClick={irParaAdicionarFlashcard} className="btn-adicionar">
-            <FaPlus /> Adicionar Flashcard
-          </button>
-      </div>
-    );
-  }
-
-  // Renderiza a lista de pastas ou os flashcards da pasta selecionada
   return pastaAtual ? renderizarFlashcards() : renderizarListaPastas();
 };
 
