@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaPlus, FaCheck } from 'react-icons/fa';
+import Questao from './Questao';
 import '../styles/quiz.css'
 /**
  * Componente Quiz - Gerencia um quiz interativo sobre o Período Paleolítico
@@ -54,18 +54,14 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
    * @param {number} opcaoIndex - Índice da opção selecionada
    */
   const selecionarResposta = (opcaoIndex) => {
-    // Evita múltiplas seleções na mesma questão
     if (respostaSelecionada !== null) return;
     
-    // Atualiza a resposta selecionada
     setRespostaSelecionada(opcaoIndex);
     
-    // Salva a resposta no histórico
     const novasRespostas = [...respostasUsuario];
     novasRespostas[questaoAtual] = opcaoIndex;
     setRespostasUsuario(novasRespostas);
 
-    // Incrementa a pontuação se a resposta estiver correta
     if (opcaoIndex === questoes[questaoAtual].respostaCorreta) {
       setPontuacao(pontuacao + 1);
     }
@@ -76,17 +72,14 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
    * Mostra o resultado final se for a última questão
    */
   const irParaProximaQuestao = () => {
-    // Impede avançar sem selecionar uma resposta
     if (respostaSelecionada === null) {
       alert('Por favor, selecione uma resposta antes de continuar.');
       return;
     }
 
-    // Se for a última questão, mostra o resultado
     if (questaoAtual === questoes.length - 1) {
       setMostrarResultado(true);
     } else {
-      // Avança para próxima questão e limpa a seleção
       setQuestaoAtual(questaoAtual + 1);
       setRespostaSelecionada(null);
     }
@@ -99,7 +92,6 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
   const voltarQuestao = () => {
     if (questaoAtual > 0) {
       setQuestaoAtual(questaoAtual - 1);
-      // Restaura a resposta anterior do histórico
       setRespostaSelecionada(respostasUsuario[questaoAtual - 1]);
     }
   };
@@ -130,7 +122,6 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
       }
     };
     
-    // Verifica se a questão já foi salva
     const questaoJaSalva = questoesSalvas.some(q => q.pergunta === novaQuestao.pergunta);
     
     if (!questaoJaSalva) {
@@ -178,69 +169,16 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
         </div>
       ) : (
         // Tela da questão atual
-        <div className="questao">
-          {/* Indicador de progresso */}
-          <div className="progresso">
-            Questão {questaoAtual + 1} de {questoes.length}
-          </div>
-          
-          {/* Texto da pergunta */}
-          <h2>{questoes[questaoAtual].pergunta}</h2>
-          
-          {/* Lista de opções */}
-          <div className="opcoes">
-            {questoes[questaoAtual].opcoes.map((opcao, index) => (
-              <button
-                key={index}
-                onClick={() => selecionarResposta(index)}
-                className={`opcao ${
-                  // Classes condicionais para feedback visual
-                  respostaSelecionada === index 
-                    ? index === questoes[questaoAtual].respostaCorreta 
-                      ? 'correta'
-                      : 'incorreta'
-                    : ''
-                } ${respostaSelecionada !== null ? 'disabled' : ''}`}
-                disabled={respostaSelecionada !== null}
-              >
-                {opcao}
-              </button>
-            ))}
-          </div>
-          
-          {/* Explicação da resposta (aparece após selecionar) */}
-          {respostaSelecionada !== null && (
-            <div className="explicacao-resposta">
-              <h3>Explicação:</h3>
-              <p>{questoes[questaoAtual].explicacao}</p>
-            </div>
-          )}
-          
-          {/* Botões de navegação */}
-          <div className="navegacao-questoes">
-            <button 
-              onClick={voltarQuestao} 
-              className="btn-navegacao"
-              disabled={questaoAtual === 0}
-            >
-              ← Anterior
-            </button>
-            {respostaSelecionada !== null && (
-              <button 
-                className="btn-salvar-flashcard"
-                onClick={salvarParaFlashcard}
-              >
-                <FaPlus /> Adicionar aos Flashcards
-              </button>
-            )}
-            <button 
-              onClick={irParaProximaQuestao} 
-              className="btn-navegacao"
-            >
-              {questaoAtual === questoes.length - 1 ? 'Ver Resultado' : 'Próxima →'}
-            </button>
-          </div>
-        </div>
+        <Questao
+          questao={questoes[questaoAtual]}
+          questaoAtual={questaoAtual}
+          totalQuestoes={questoes.length}
+          respostaSelecionada={respostaSelecionada}
+          onSelectResposta={selecionarResposta}
+          onVoltar={voltarQuestao}
+          onProxima={irParaProximaQuestao}
+          onSalvarFlashcard={salvarParaFlashcard}
+        />
       )}
     </div>
   );

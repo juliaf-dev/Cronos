@@ -68,3 +68,17 @@
       margin-left: 20px;
     }
   }
+  .botao-criar-resumo { 
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-left: 15px;
+    vertical-align: middle;
+  }
