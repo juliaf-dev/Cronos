@@ -1,7 +1,7 @@
 import MateriaTemplate from './MateriaTemplate';
 
 const Geografia = ({ voltarParaMain, navegarParaConteudo }) => {
-  const temas = [
+  const periodos = [
     { 
       id: 1, 
       nome: "Geografia Física", 
@@ -24,7 +24,7 @@ const Geografia = ({ voltarParaMain, navegarParaConteudo }) => {
       voltarParaMain={voltarParaMain}
       navegarParaConteudo={navegarParaConteudo}
       titulo="Geografia"
-      itens={temas}
+      itens={periodos}
    
     />
   );

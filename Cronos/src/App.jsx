@@ -10,6 +10,10 @@ import AdicionarFlashcard from './components/Flashcards/AdicionarFlashcard';
 import AdicionarResumo from './components/AdicionarResumo';
 import Geografia from './components/Materia/Geografia'
 import Historia from './components/Materia/Historia';
+import Filosofia from './components/Materia/Filosofia';
+import Sociologia from './components/Materia/Sociologia';
+import ChatFlutuante from './components/ChatFlutuante';
+
 
 
 function App() {
@@ -107,15 +111,15 @@ function App() {
   };
 
   return (
+    
     <div className="app">
       <Header 
         voltarParaMain={voltarParaMain}
         irParaResumos={irParaResumos}
         irParaFlashcards={irParaFlashcards}
         navegarParaMateria={navegarParaMateria}
-
       />
-      
+     <ChatFlutuante /> 
       {paginaAtual === 'Main' && (
         <Main 
         navegarParaConteudo={navegarParaConteudo}
@@ -134,6 +138,20 @@ function App() {
         voltarParaMain={voltarParaMain}
         />
       )}
+      {paginaAtual === 'materia' && materiaAtual === 'Filosofia' && (
+        <Filosofia
+        navegarParaConteudo={navegarParaConteudo}
+        voltarParaMain={voltarParaMain}
+        />
+      )}
+      {paginaAtual === 'materia' && materiaAtual === 'Sociologia' && (
+        <Sociologia
+        navegarParaConteudo={navegarParaConteudo}
+        voltarParaMain={voltarParaMain}
+        />
+      )}
+      
+      
       
       {paginaAtual === 'conteudo' && (
         <Conteudo 
@@ -192,8 +210,9 @@ function App() {
           salvarResumo={salvarResumo}
         />
       )}
-    </div>
-  );
+    </div> 
+); 
+
 }
 
 export default App;

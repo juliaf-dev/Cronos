@@ -19,7 +19,7 @@ export const gerarConteudoMateria = async (materia, topico) => {
     return "Desculpe, houve um erro ao gerar o conteúdo. Por favor, tente novamente mais tarde.";
   }
 };
-export const gerarQuestoesQuiz = async (materia, topico, quantidade = 5) => {
+export const gerarQuestoesQuiz = async (materia, topico) => {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
@@ -53,5 +53,23 @@ export const gerarQuestoesQuiz = async (materia, topico, quantidade = 5) => {
   } catch (error) {
     console.error("Erro ao gerar questões:", error);
     throw new Error("Não foi possível gerar as questões. Por favor, tente novamente.");
+  }
+};
+export const gerarRespostaIA = async (pergunta) => {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `Você é um assistente educacional especializado em ajudar estudantes.
+    ${pergunta}
+    
+    Responda de forma clara, concisa e didática. 
+    Se a pergunta não for relacionada a estudos, oriente gentilmente o usuário a fazer perguntas sobre conteúdos educacionais.`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
+  } catch (error) {
+    console.error("Erro ao gerar resposta:", error);
+    throw error;
   }
 };
