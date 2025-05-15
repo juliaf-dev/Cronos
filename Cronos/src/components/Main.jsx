@@ -5,9 +5,8 @@ const Main = ({ navegarParaMateria }) => {
   const materiasData = [
     { id: 1, nome: "História" },
     { id: 2, nome: "Geografia" },
-    { id: 3, nome: "Literatura" },
-    { id: 4, nome: "Filosofia" },
-    { id: 5, nome: "Sociologia" }
+    { id: 3, nome: "Filosofia" },
+    { id: 4, nome: "Sociologia" }
   ];
 
   return (

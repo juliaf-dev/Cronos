@@ -1,58 +1,173 @@
-import React, { useState } from 'react';
-import Questao from './Questao';
-import '../styles/quiz.css'
-/**
- * Componente Quiz - Gerencia um quiz interativo sobre o Período Paleolítico
- * @param {Object} props - Propriedades do componente
- * @param {Function} props.voltarParaConteudo - Função para retornar à página de conteúdo
- * @param {Function} props.voltarParaMain - Função para retornar à página da Main
- */
-const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
-  // Estados para controlar o quiz
-  const [questaoAtual, setQuestaoAtual] = useState(0);          // Índice da questão atual
-  const [pontuacao, setPontuacao] = useState(0);                // Número de respostas corretas
-  const [mostrarResultado, setMostrarResultado] = useState(false); // Controla exibição do resultado final
-  const [respostaSelecionada, setRespostaSelecionada] = useState(null); // Índice da resposta selecionada
-  const [respostasUsuario, setRespostasUsuario] = useState(Array(10).fill(null)); // Histórico de respostas
-  const [mostrarExplicacao, setMostrarExplicacao] = useState(false);
-  const [quizFinalizado, setQuizFinalizado] = useState(false);
-  const [questoesSalvas, setQuestoesSalvas] = useState([]);
+import React, { useState, useEffect } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import '../styles/quiz.css';
+import { gerarQuestoesQuiz } from '../services/geminiService';
 
-  // Array com todas as questões do quiz
-  const questoes = [
-    // Cada objeto representa uma questão com:
-    // - pergunta: texto da questão
-    // - opcoes: array com as alternativas
-    // - respostaCorreta: índice da resposta correta (0-3)
-    // - explicacao: texto explicativo mostrado após responder
-    {
-      pergunta: "Qual é o outro nome dado ao Período Paleolítico?",
-      opcoes: [
-        "Idade dos Metais",
-        "Idade da Pedra Lascada",
-        "Idade da Pedra Polida",
-        "Idade do Bronze"
-      ],
-      respostaCorreta: 1,
-      explicacao: "O Período Paleolítico também é conhecido como 'Idade da Pedra Lascada' porque as ferramentas eram feitas lascando pedras para criar bordas cortantes. Este nome foi cunhado no século XIX para diferenciar este período do Neolítico (Idade da Pedra Polida)."
-    },
-    {
-      pergunta: "Quanto tempo durou aproximadamente o período Paleolítico?",
-      opcoes: [
-        "500 mil anos",
-        "1 milhão de anos",
-        "2,5 milhões de anos",
-        "100 mil anos"
-      ],
-      respostaCorreta: 2,
-      explicacao: "O Período Paleolítico durou aproximadamente 2,5 milhões de anos, começando há cerca de 2,5 milhões de anos e terminando há cerca de 10.000 anos. É o período mais longo da pré-história humana, abrangendo cerca de 99% da história tecnológica da humanidade."
+// Componente Alternativa (mantido igual)
+const Alternativa = ({ 
+  opcao, 
+  index, 
+  respostaSelecionada, 
+  respostaCorreta, 
+  onSelect 
+}) => {
+  const isSelecionada = respostaSelecionada === index;
+  const isCorreta = index === respostaCorreta;
+  
+  const getClasseAlternativa = () => {
+    if (respostaSelecionada === null) return 'opcao';
+    if (isSelecionada) {
+      return isCorreta ? 'opcao correta' : 'opcao incorreta';
     }
-  ];
+    return 'opcao disabled';
+  };
 
-  /**
-   * Função chamada quando o usuário seleciona uma resposta
-   * @param {number} opcaoIndex - Índice da opção selecionada
-   */
+  return (
+    <button
+      onClick={() => onSelect(index)}
+      className={getClasseAlternativa()}
+      disabled={respostaSelecionada !== null}
+    >
+      {opcao}
+    </button>
+  );
+};
+
+// Componente Questao (com pequenas adaptações)
+const Questao = ({
+  questao,
+  questaoAtual,
+  totalQuestoes,
+  respostaSelecionada,
+  onSelectResposta,
+  onVoltar,
+  onProxima,
+  onSalvarFlashcard
+}) => {
+  const [mostrarAlternativas, setMostrarAlternativas] = useState(false);
+
+  useEffect(() => {
+    setMostrarAlternativas(false);
+  }, [questaoAtual]);
+
+  const handleMostrarAlternativas = () => {
+    setMostrarAlternativas(true);
+  };
+
+  return (
+    <div className="questao">
+      <div className="progresso">
+        Questão {questaoAtual + 1} de {totalQuestoes}
+      </div>
+      
+      <h2>{questao.pergunta}</h2>
+      
+      {!mostrarAlternativas ? (
+        <div className="container-botao-alternativas">
+          <button 
+            className="btn-mostrar-alternativas"
+            onClick={handleMostrarAlternativas}
+          >
+            Ver Alternativas
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="opcoes">
+            {questao.opcoes.map((opcao, index) => (
+              <Alternativa
+                key={index}
+                opcao={opcao}
+                index={index}
+                respostaSelecionada={respostaSelecionada}
+                respostaCorreta={questao.respostaCorreta}
+                onSelect={onSelectResposta}
+              />
+            ))}
+          </div>
+          
+          {respostaSelecionada !== null && (
+            <div className="explicacao-resposta">
+              <h3>Explicação:</h3>
+              <p>{questao.explicacao}</p>
+            </div>
+          )}
+          
+          <div className="navegacao-questoes">
+            <button 
+              onClick={onVoltar} 
+              className="btn-navegacao"
+              disabled={questaoAtual === 0}
+            >
+              ← Anterior
+            </button>
+            
+            {respostaSelecionada !== null && (
+              <button 
+                className="btn-salvar-flashcard"
+                onClick={onSalvarFlashcard}
+              >
+                <FaPlus /> Adicionar aos Flashcards
+              </button>
+            )}
+            
+            <button 
+              onClick={onProxima} 
+              className="btn-navegacao"
+            >
+              {questaoAtual === totalQuestoes - 1 ? 'Ver Resultado' : 'Próxima →'}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+// Componente principal Quiz com integração com IA
+const Quiz = ({ conteudo, voltarParaConteudo, voltarParaMain }) => {
+  const [questaoAtual, setQuestaoAtual] = useState(0);
+  const [pontuacao, setPontuacao] = useState(0);
+  const [mostrarResultado, setMostrarResultado] = useState(false);
+  const [respostaSelecionada, setRespostaSelecionada] = useState(null);
+  const [respostasUsuario, setRespostasUsuario] = useState([]);
+  const [questoesSalvas, setQuestoesSalvas] = useState([]);
+  const [questoes, setQuestoes] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
+
+  useEffect(() => {
+    const carregarQuestoes = async () => {
+      setCarregando(true);
+      try {
+        // Extrai matéria e tópico do conteúdo
+        const [materia, topico] = conteudo.nome.split(' - ');
+        
+        // Gera questões usando a API de IA
+        const questoesGeradas = await gerarQuestoesQuiz(materia, topico, 5); // Gera 5 questões
+        
+        // Formata as questões para o formato esperado pelo componente
+        const questoesFormatadas = questoesGeradas.map(q => ({
+          pergunta: q.pergunta,
+          opcoes: q.opcoes,
+          respostaCorreta: q.respostaCorreta,
+          explicacao: q.explicacao
+        }));
+        
+        setQuestoes(questoesFormatadas);
+        setRespostasUsuario(Array(questoesFormatadas.length).fill(null));
+        setErro(null);
+      } catch (error) {
+        console.error('Erro ao carregar questões:', error);
+        setErro('Erro ao carregar as questões. Por favor, tente novamente.');
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    carregarQuestoes();
+  }, [conteudo]);
+
   const selecionarResposta = (opcaoIndex) => {
     if (respostaSelecionada !== null) return;
     
@@ -67,10 +182,6 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
     }
   };
 
-  /**
-   * Função para avançar para a próxima questão
-   * Mostra o resultado final se for a última questão
-   */
   const irParaProximaQuestao = () => {
     if (respostaSelecionada === null) {
       alert('Por favor, selecione uma resposta antes de continuar.');
@@ -85,10 +196,6 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
     }
   };
 
-  /**
-   * Função para voltar à questão anterior
-   * Restaura a resposta previamente selecionada
-   */
   const voltarQuestao = () => {
     if (questaoAtual > 0) {
       setQuestaoAtual(questaoAtual - 1);
@@ -96,19 +203,14 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
     }
   };
 
-  /**
-   * Função para reiniciar o quiz
-   * Reseta todos os estados para seus valores iniciais
-   */
   const reiniciarQuiz = () => {
     setQuestaoAtual(0);
     setPontuacao(0);
     setMostrarResultado(false);
     setRespostaSelecionada(null);
-    setRespostasUsuario(Array(10).fill(null));
+    setRespostasUsuario(Array(questoes.length).fill(null));
   };
 
-  // Função para salvar a questão atual nos flashcards
   const salvarParaFlashcard = () => {
     const questaoAtualObj = questoes[questaoAtual];
     const novaQuestao = {
@@ -117,8 +219,8 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
       explicacao: questaoAtualObj.explicacao,
       id: Date.now() + Math.random(),
       periodo: {
-        id: 1, // ID do período Pré-história
-        nome: "Pré-história"
+        id: 1,
+        nome: conteudo.nome.split(' - ')[1] || "Geral"
       }
     };
     
@@ -127,7 +229,6 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
     if (!questaoJaSalva) {
       setQuestoesSalvas([...questoesSalvas, novaQuestao]);
       
-      // Salva no localStorage para persistência
       const flashcardsSalvos = JSON.parse(localStorage.getItem('flashcards') || '[]');
       localStorage.setItem('flashcards', JSON.stringify([...flashcardsSalvos, novaQuestao]));
       
@@ -137,21 +238,62 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
     }
   };
 
-  // Renderização do componente
+  if (carregando) {
+    return (
+      <div className="quiz-container">
+        <button onClick={voltarParaConteudo} className="botao-voltar">
+          ← Voltar
+        </button>
+        <div className="carregando">
+          <p>Gerando questões sobre {conteudo.nome}...</p>
+          <div className="spinner"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (erro) {
+    return (
+      <div className="quiz-container">
+        <button onClick={voltarParaConteudo} className="botao-voltar">
+          ← Voltar
+        </button>
+        <div className="erro">
+          <p>{erro}</p>
+          <button onClick={() => window.location.reload()} className="btn-reiniciar">
+            Tentar Novamente
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (questoes.length === 0 && !carregando) {
+    return (
+      <div className="quiz-container">
+        <button onClick={voltarParaConteudo} className="botao-voltar">
+          ← Voltar
+        </button>
+        <div className="sem-questoes">
+          <p>Não foi possível gerar questões para este conteúdo.</p>
+          <button onClick={voltarParaConteudo} className="btn-voltar">
+            Voltar ao conteúdo
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="quiz-container">
-      {/* Botão para voltar à página de conteúdo */}
       <button onClick={voltarParaConteudo} className="botao-voltar">
         ← Voltar
       </button>
 
-      {/* Renderização condicional: mostra resultado ou questão atual */}
       {mostrarResultado ? (
-        // Tela de resultado final
         <div className="resultado">
-          <h2>Resultado do Quiz</h2>
+          <h2>Resultado do Quiz sobre {conteudo.nome}</h2>
           <p>Você acertou {pontuacao} de {questoes.length} questões!</p>
-          {/* Mensagem personalizada baseada na pontuação */}
           <div className="mensagem-resultado">
             {pontuacao === questoes.length && "Parabéns! Você acertou todas as questões!"}
             {pontuacao >= questoes.length * 0.7 && pontuacao < questoes.length && "Muito bom! Você teve um ótimo desempenho!"}
@@ -168,7 +310,6 @@ const Quiz = ({ voltarParaConteudo, voltarParaMain }) => {
           </div>
         </div>
       ) : (
-        // Tela da questão atual
         <Questao
           questao={questoes[questaoAtual]}
           questaoAtual={questaoAtual}

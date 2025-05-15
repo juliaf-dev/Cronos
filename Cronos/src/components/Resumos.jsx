@@ -12,6 +12,7 @@ const Resumos = ({ resumos, voltarParaMain, editarResumo, excluirResumo, irParaA
       />
       
       <div className="lista-resumos">
+        
         {resumos && resumos.length > 0 ? (
           resumos.map((resumo) => (
             <div key={resumo.id} className="card-resumo">

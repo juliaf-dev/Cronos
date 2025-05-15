@@ -13,7 +13,6 @@ const MateriasDropdown = ({ navegarParaMateria }) => {
     { nome: 'Filosofia', icone: faBook },
     { nome: 'Geografia', icone: faGlobe },
     { nome: 'História', icone: faLandmark },
-    { nome: 'Literatura', icone: faBookOpen },
     { nome: 'Sociologia', icone: faUsers }
   ];
 

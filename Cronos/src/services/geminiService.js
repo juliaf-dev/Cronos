@@ -19,3 +19,39 @@ export const gerarConteudoMateria = async (materia, topico) => {
     return "Desculpe, houve um erro ao gerar o conteúdo. Por favor, tente novamente mais tarde.";
   }
 };
+export const gerarQuestoesQuiz = async (materia, topico, quantidade = 5) => {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+    const prompt = `Gere 10 questões de múltipla escolha sobre ${topico} na matéria de ${materia}.
+    Cada questão deve ter:
+    - Uma pergunta clara e objetiva que possa vir a virar um flashcard
+    - 4 alternativas (A, B, C, D)
+    - A resposta correta indicada pelo índice (0 a 3)
+    - Uma explicação detalhada da resposta
+    
+    Formate a resposta como um array JSON onde cada objeto tem:
+    {
+      "pergunta": "texto da pergunta",
+      "opcoes": ["opção 1", "opção 2", "opção 3", "opção 4"],
+      "respostaCorreta": índice da opção correta (0-3),
+      "explicacao": "explicação detalhada"
+    }
+
+    Inclua questões que podem cair no ENEM e sejam relevantes para o tema.`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    // Extrai o JSON da resposta (o Gemini pode adicionar texto antes/depois)
+    const jsonStart = text.indexOf('[');
+    const jsonEnd = text.lastIndexOf(']') + 1;
+    const jsonString = text.slice(jsonStart, jsonEnd);
+
+    return JSON.parse(jsonString);
+  } catch (error) {
+    console.error("Erro ao gerar questões:", error);
+    throw new Error("Não foi possível gerar as questões. Por favor, tente novamente.");
+  }
+};

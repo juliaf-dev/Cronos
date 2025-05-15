@@ -164,10 +164,11 @@ function App() {
       )}
 
       {paginaAtual === 'quiz' && (
-        <Quiz 
-          voltarParaConteudo={voltarParaConteudo}
-          voltarParaMain={voltarParaMain}
-        />
+      <Quiz 
+  conteudo={conteudoSelecionado} 
+  voltarParaConteudo={voltarParaConteudo}
+  voltarParaMain={voltarParaMain}
+/>
       )}
 
       {paginaAtual === 'flashcards' && (
@@ -178,10 +179,10 @@ function App() {
       )}
 
       {paginaAtual === 'adicionarFlashcard' && (
-        <AdicionarFlashcard 
-          voltarParaFlashcards={voltarParaFlashcards}
-          disciplinaSelecionada={disciplinaFlashcard}
-        />
+      <AdicionarFlashcard 
+  voltarParaFlashcards={voltarParaFlashcards}
+  disciplinaSelecionada="História"
+/>
       )}
 
       {paginaAtual === 'adicionarResumo' && (
